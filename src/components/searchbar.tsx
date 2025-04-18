@@ -1,23 +1,43 @@
-"use client"; // 클라이언트 컴포넌트 명시
-import React, { useState } from "react"
-import { useRouter } from "next/navigation";
-// page router => next/router
-// app router => next/navigation
+"use client";
 
-export default function SearchBar () {
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import style from "./serachbar.module.css";
+
+export default function Searchbar() {
   const router = useRouter();
-  const[search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState("");
 
-  const onChacngeSearch = (e:React.ChangeEvent<HTMLInputElement>) => {  
+  const q = searchParams.get("q");
+
+  useEffect(() => {
+    setSearch(q || "");
+  }, [q]);
+
+  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  } // 상호작용 존재
+  };
 
   const onSubmit = () => {
+    if (!search || q === search) return;
     router.push(`/search?q=${search}`);
-  }
+  };
 
-  return <div>
-    <input value={search} onChange={onChacngeSearch}/>
-    <button onClick={onSubmit}>검색</button>
-  </div>
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit();
+    }
+  };
+
+  return (
+    <div className={style.container}>
+      <input
+        value={search}
+        onChange={onChangeSearch}
+        onKeyDown={onKeyDown}
+      />
+      <button onClick={onSubmit}>검색</button>
+    </div>
+  );
 }

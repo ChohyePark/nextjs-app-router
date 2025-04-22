@@ -8,7 +8,7 @@ export default async function Page({
 }) {
   const {q} = await searchParams;
   const response = await fetch(`
-    ${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`)
+    ${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`, {cache : "force-cache"})
 
   if(!response.ok) {
     return <div>문제가 발생했습니다</div>

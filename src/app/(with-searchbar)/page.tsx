@@ -3,7 +3,7 @@ import style from "./page.module.css";
 import { BookData } from "@/types";
 
 
-export const dynamic = ""
+// export const dynamic = ""
 
 // 특정 페이지의 유형을 강제로 Static, Dynamic 페이지로 설정
 // 1. auto : 기본값, 아무것도 강제하지 않음

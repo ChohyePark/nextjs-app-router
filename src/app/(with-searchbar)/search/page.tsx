@@ -1,5 +1,6 @@
 import BookItem from "@/components/book-item";
 import { BookData } from "@/types";
+import { delay } from "@/util/delay";
 
 export default async function Page({
   searchParams,

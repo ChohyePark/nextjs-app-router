@@ -1,10 +1,10 @@
 import BookItem from '@/components/book-item';
 import style from './page.module.css';
 import { BookData } from '@/types';
-import { delay } from '@/util/delay';
 import { Suspense } from 'react';
-import BookItemSkeleton from '@/components/skeleton/book-item-skeleton';
 import BookListSkeleton from '@/components/skeleton/book-list-skeleton';
+
+export const dynamic = 'force-dynamic';
 
 // export const dynamic = ""
 
@@ -16,7 +16,6 @@ import BookListSkeleton from '@/components/skeleton/book-list-skeleton';
 // dynamic 옵션은 사실 잘 권장되지않음
 
 async function AllBooks() {
-  await delay(1500);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
     { cache: 'force-cache' },
@@ -37,7 +36,6 @@ async function AllBooks() {
 }
 
 async function RecoBooks() {
-  await delay(3000);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
     { next: { revalidate: 3 } },
@@ -55,8 +53,6 @@ async function RecoBooks() {
     </div>
   );
 }
-
-export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
